@@ -29,6 +29,14 @@ class Emotions:
     @classmethod
     def to_list(cls):
         return cls._emotions.copy()
+    
+    @classmethod
+    def to_index(cls, emotion):
+        return cls._emotions.index(emotion)
+
+    @classmethod
+    def from_index(cls, index):
+        return cls._emotions[index]
 
 
 
