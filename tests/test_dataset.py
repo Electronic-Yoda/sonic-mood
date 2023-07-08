@@ -7,7 +7,7 @@ from unittest import TestCase, main
 import pandas as pd
 from src.utils.dataset import AudioEmotionDataset
 from src.utils.constants import Columns, Emotions, Datasets
-import src.utils.data_processing as dp
+import src.utils.data_processing as data_processing
 
 
 
@@ -15,7 +15,7 @@ class AudiEmotionDatasetTestCase(TestCase):
     def test_dataset(self):
         # purpose: test that __getitem__ returns the correct audio file and label
 
-        csv_df = dp.add_rel_path(
+        csv_df = data_processing.read_csv(
             pd.read_csv(
                 os.path.join(BASE_DIR, 'data/metadata/dataset.csv'),
                 index_col=False

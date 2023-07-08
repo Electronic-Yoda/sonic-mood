@@ -116,7 +116,9 @@ def get_audio_length(path):
     waveform, sample_rate = torchaudio.load(path)
     return waveform.shape[1] / sample_rate
 
-def add_rel_path(df, base_dir):
+def read_csv(df, base_dir):
+    '''Reads the csv file and returns a dataframe with the path relative to the base_dir'''
+
     # create a copy of the dataframe
     df_cp = df.copy()
     df_cp[Columns.PATH] = df_cp[Columns.PATH].apply(lambda x: os.path.join(base_dir, x))
