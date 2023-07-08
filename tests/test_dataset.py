@@ -23,10 +23,10 @@ class AudiEmotionDatasetTestCase(TestCase):
             BASE_DIR
         )
 
-        dataset = AudioEmotionDataset(csv_df)
+        dataset = AudioEmotionDataset(csv_df, test_mode=True)
 
         for i in range(len(dataset)):
-            mel_spec, label, waveform, audio_length, audio_file_path = dataset[i]
+            input, label, waveform, audio_length, audio_file_path = dataset[i]
             self.assertEqual(audio_file_path, csv_df.loc[i, Columns.PATH])
             self.assertEqual(Emotions().from_index(label.item()), csv_df.loc[i, Columns.EMOTIONS])
             self.assertEqual(audio_length, csv_df.loc[i, Columns.AUDIO_LENGTH])
