@@ -28,13 +28,10 @@ model = MyModel()  # Substitute with your model
 loss_function = nn.CrossEntropyLoss()
 
 for epoch in range(num_epochs):
-    for i, batch in enumerate(train_loader):
-        # Unpack the batch
-        mel_specs, labels, waveforms, audio_lengths, audio_file_paths = batch
-        # note, we can disregard everything after labels by: mel_specs, labels, *_ = batch
+    for i, (inputs, labels) in enumerate(train_loader):
 
         # Forward pass through the model
-        outputs = model(mel_specs)
+        outputs = model(inputs)
 
         # Compute the loss
         loss = loss_function(outputs, labels)
