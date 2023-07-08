@@ -5,8 +5,6 @@ import torchaudio
 import os
 from .constants import Columns, Emotions, Datasets
 
-BASE_DIR = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
-
 
 # Functions to extract path and labels for each dataset
 
@@ -118,3 +116,8 @@ def get_audio_length(path):
     waveform, sample_rate = torchaudio.load(path)
     return waveform.shape[1] / sample_rate
 
+def add_rel_path(df, base_dir):
+    # create a copy of the dataframe
+    df_cp = df.copy()
+    df_cp[Columns.PATH] = df_cp[Columns.PATH].apply(lambda x: os.path.join(base_dir, x))
+    return df_cp
