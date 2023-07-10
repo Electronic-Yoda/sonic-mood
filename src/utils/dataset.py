@@ -12,20 +12,20 @@ from .constants import Columns, Emotions
 class AudioEmotionDataset(Dataset):
     # change so that the csv is passed in as a dataframe
     def __init__(self, csv_dataframe, n_mels=64, sample_rate=16000,
-                 override_transform=False, transform=None, test_mode=False) -> None:
+                transform=None, test_mode=False) -> None:
 
         self.dataframe = csv_dataframe
         self.labels = self.dataframe[Columns.EMOTIONS].unique()
 
-        if override_transform:
-            self.transform = transform
-        else:
-            # Create a MelSpectrogram transform
+        if transform == None:
+            # Create a MelSpectrogram transform by default
             self.transform = torchaudio.transforms.MelSpectrogram(
                 sample_rate=sample_rate,
                 n_mels=n_mels,
                 n_fft=400
             )
+        else:
+            self.transform = transform # use the transform passed in
 
         self.test_mode = test_mode
 
