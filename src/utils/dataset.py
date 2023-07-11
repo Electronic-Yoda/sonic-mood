@@ -32,6 +32,8 @@ class AudioEmotionDataset(Dataset):
             n_mels=n_mels,
             n_fft=n_fft,
         )
+        self.normalize = torchaudio.transforms.AmplitudeToDB()
+
         self.n_mels = n_mels
         self.sample_rate = sample_rate
         self.n_fft = n_fft
@@ -59,6 +61,7 @@ class AudioEmotionDataset(Dataset):
 
         # Apply the transform
         input = self.transform(waveform)
+        input = self.normalize(input)
 
         if input.shape[2] > self.max_timeframes: # handles the case where the last window starts at the last sample
             input = input[:, :, :self.max_timeframes]
