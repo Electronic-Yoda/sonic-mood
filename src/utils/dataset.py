@@ -10,9 +10,18 @@ from .constants import Columns, Emotions
     
 
 class AudioEmotionDataset(Dataset):
-    # change so that the csv is passed in as a dataframe
-    def __init__(self, csv_dataframe, n_mels=64, sample_rate=16000, n_fft=400, max_audio_length_sec=3.65, device='cpu',
+
+    def __init__(self, csv_dataframe, n_mels=64, sample_rate=16000, n_fft=400, max_audio_length_sec=3.65,
                 test_mode=False) -> None:
+        '''
+        args:
+            csv_dataframe: a pandas dataframe containing the metadata of the dataset
+            n_mels: the number of mel bands to generate
+            sample_rate: the target sample rate for the audio files. If the audio files have different sample rates, they will be resampled to this rate
+            n_fft: the number of fft bins
+            max_audio_length_sec: the maximum audio length in seconds
+            test_mode: if True, return the waveform and audio file path, and audio_length as well
+        '''
 
         self.dataframe = csv_dataframe
         self.labels = self.dataframe[Columns.EMOTIONS].unique()
@@ -23,8 +32,6 @@ class AudioEmotionDataset(Dataset):
             n_mels=n_mels,
             n_fft=400,
         )
-        self.transform.to(device)
-
         self.n_mels = n_mels
         self.sample_rate = sample_rate
         self.n_fft = n_fft
