@@ -17,7 +17,6 @@ import src.utils.data_processing as data_processing
 class AudiEmotionDatasetTestCase(TestCase):
     def test_dataset(self):
         # purpose: test that __getitem__ returns the correct audio file and label
-
         csv_df = data_processing.read_csv(
             pd.read_csv(
                 os.path.join(BASE_DIR, 'data/metadata/dataset.csv'),
@@ -80,6 +79,7 @@ class AudiEmotionDatasetTestCase(TestCase):
             plt.title('Mel Spectrogram')
             plt.colorbar(format='%+2.0f dB')
             plt.tight_layout()
+            # plt.show()
             plt.pause(1)  # display each plot for 1 seconds
 
 

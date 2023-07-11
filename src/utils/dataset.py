@@ -60,6 +60,9 @@ class AudioEmotionDataset(Dataset):
         # Apply the transform
         input = self.transform(waveform)
 
+        if input.shape[2] > self.max_timeframes: # handles the case where the last window starts at the last sample
+            input = input[:, :, :self.max_timeframes]
+
         # encode the label as a long tensor
         label = Emotions.to_index(self.dataframe.loc[idx, Columns.EMOTIONS])
         label = torch.tensor(label, dtype=torch.long)
