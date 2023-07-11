@@ -30,7 +30,7 @@ class AudioEmotionDataset(Dataset):
         self.transform = torchaudio.transforms.MelSpectrogram(
             sample_rate=sample_rate,
             n_mels=n_mels,
-            n_fft=400,
+            n_fft=n_fft,
         )
         self.n_mels = n_mels
         self.sample_rate = sample_rate
