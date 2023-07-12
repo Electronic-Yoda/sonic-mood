@@ -1,5 +1,7 @@
 .venv
 data/raw
+data/spectrograms
+data/train
 __pycache__
 unrelated
 ```

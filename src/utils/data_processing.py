@@ -2,6 +2,7 @@
 
 import pandas as pd
 import torchaudio
+import torch
 import os
 from .constants import Columns, Emotions, Datasets
 
@@ -123,3 +124,26 @@ def read_csv(df, base_dir):
     df_cp = df.copy()
     df_cp[Columns.PATH] = df_cp[Columns.PATH].apply(lambda x: os.path.join(base_dir, x))
     return df_cp
+
+
+# function to convert the audio files to spectrograms
+def convert_to_spectrogram(dataset, BASE_DIR, output_spectrogram_path, output_metadata_path):
+    paths = []
+    labels = []
+    for idx in range(len(dataset)):
+        spectrogram, label = dataset[idx]
+        rel_path = os.path.join(output_spectrogram_path, f'{idx}.pt')
+        path = os.path.join(BASE_DIR, rel_path)
+        if not os.path.exists(os.path.dirname(path)):
+            os.makedirs(os.path.dirname(path))
+        torch.save(spectrogram, path)
+        paths.append(rel_path.replace('\\', '/'))
+        labels.append(Emotions.from_index(label.item()))
+
+    mel_df = pd.DataFrame({
+        Columns.PATH: paths,
+        Columns.EMOTIONS: labels,
+    })
+
+    mel_df.to_csv(os.path.join(BASE_DIR, output_metadata_path), index=False)
+    return mel_df
