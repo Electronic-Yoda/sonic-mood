@@ -104,17 +104,13 @@ class AudioEmotionDataset(Dataset):
 class MelspecEmotionDataset(Dataset):
     def __init__(self, csv_dataframe) -> None:
         self.dataframe = csv_dataframe
-
         self.n_mels = torch.load(self.dataframe.loc[0, Columns.PATH]).shape[1]
         self.max_timeframes = torch.load(self.dataframe.loc[0, Columns.PATH]).shape[2]
-
 
     def __len__(self) -> int:
         return len(self.dataframe)
     
-
     def __getitem__(self, idx) -> tuple:
-
         melspec = torch.load(self.dataframe.loc[idx, Columns.PATH])
         label = Emotions.to_index(self.dataframe.loc[idx, Columns.EMOTIONS])
         label = torch.tensor(label, dtype=torch.long)
