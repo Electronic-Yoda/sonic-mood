@@ -1,7 +1,7 @@
 # Sonic Mood
 This is a repository containing utilities and models for audio emotion classification using deep learning. Four datasets are used: CREMA, RAVDESS, SAVEE, and TESS. Training is done using all four datasets combined.
 
-Custom dataset classes, such as `MelspecEmotionDataset` were developed for the purpose of training using dataloaders.
+Custom Pytorch dataset classes, such as `MelspecEmotionDataset`, were developed for the purpose of training using Pytorch's dataloaders.
 
 ## Dataset Usage
 ```
@@ -74,3 +74,20 @@ train.train_net(
     device=device
 )
 ```
+
+## Data distribution
+![distributions](img/distributions.png)
+
+## Architecture
+![architecture](img/architecture.png)
+
+## Results
+![class_accuracy](img/class_accuracy.png)
+![confusion_matrix](img/confusion_matrix.png)
+
+## Demo
+A simple Tkinter program is developed to show the capabilities of the model. This application allows users to load an audio file from the file system, process it using our audio processing
+technique, and predict the output emotion with a simple click. The application is located under `src/demo.py`
+
+![demo_ui](img/demo_ui.jpg)
+
