@@ -9,8 +9,6 @@ import os
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 
 sys.path.insert(0, BASE_DIR)
-#  sys.path.insert(0, BASE_DIR)
-
 from utils.constants import Emotions
 from models.audio_cnn import AudioCNN, ModAudioCNN8
 from utils.transform import RawAudioToMelspecTransform
